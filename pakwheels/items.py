@@ -3,12 +3,12 @@ import scrapy
 
 class PakwheelsItem(scrapy.Item):
     
-    Name = scrapy.Field()
-    City = scrapy.Field()
-    Price = scrapy.Field()
-    Year = scrapy.Field()
-    Ad_information = scrapy.Field()
-    Picture = scrapy.Field()
-    Car_type = scrapy.Field()
-    Engine = scrapy.Field()
+    car_name = scrapy.Field()
+    car_address = scrapy.Field()
+    car_price = scrapy.Field()
+    description = scrapy.Field()
+    specifications = scrapy.Field()
+    car_features = scrapy.Field()
+    car_image = scrapy.Field()
+    seller_info = scrapy.Field()
     
