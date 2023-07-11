@@ -7,7 +7,7 @@ from ..items import CarItem
 
 class Pak_Wheel_Spider(CrawlSpider):
     
-    name = "used_car"
+    name = "pak_wheel_spider"
     allowed_domains = ["pakwheels.com"]
     start_urls = ["https://www.pakwheels.com/used-cars/search/-/"]
     base_url = "https://www.pakwheels.com"
