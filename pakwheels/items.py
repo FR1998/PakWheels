@@ -1,8 +1,7 @@
 import scrapy
 
 
-class PakwheelsItem(scrapy.Item):
-    
+class CarItem(scrapy.Item):
     car_name = scrapy.Field()
     car_address = scrapy.Field()
     car_price = scrapy.Field()
@@ -11,4 +10,5 @@ class PakwheelsItem(scrapy.Item):
     car_features = scrapy.Field()
     car_image = scrapy.Field()
     seller_info = scrapy.Field()
+    seller_comments = scrapy.Field()
     
