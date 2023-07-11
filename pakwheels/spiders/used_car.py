@@ -1,11 +1,13 @@
 import json
+
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider
 from scrapy.spiders import Rule
-from ..items import CarItem
+
+from pakwheels.items import CarItem
 
 
-class Pak_Wheel_Spider(CrawlSpider):
+class PakWheelSpider(CrawlSpider):
     
     name = "pak_wheel_spider"
     allowed_domains = ["pakwheels.com"]
@@ -13,21 +15,30 @@ class Pak_Wheel_Spider(CrawlSpider):
     base_url = "https://www.pakwheels.com"
     
     rules = [
-        Rule(LinkExtractor(allow="used-cars/", restrict_css="a.car-name.ad-detail-path", attrs="href"), callback="parse_product_page",
+        Rule(
+            LinkExtractor(
+            allow="used-cars/", 
+            restrict_css="a.car-name.ad-detail-path", 
+            attrs="href"
+            ), 
+            callback="parse_product_page",
             follow=True),
-        Rule(LinkExtractor(allow="used-cars/search/", restrict_css="ul.pagination.search-pagi li.next_page", attrs="href" ), follow=True)
+        Rule(
+            LinkExtractor(
+            allow="used-cars/search/", 
+            restrict_css="ul.pagination.search-pagi li.next_page", 
+            attrs="href" 
+            ), 
+            follow=True)
     ]
-           
-                   
+                        
     def extract_car_name(self, response):
         
         return response.css("h1::text").get()
     
-    
     def extract_car_address(self, response):
         
         return response.css(".detail-sub-heading a::text").get()
-    
     
     def extract_car_price(self, response):
         pricing = response.css("script[type='application/ld+json']::text").getall()
@@ -37,26 +48,21 @@ class Pak_Wheel_Spider(CrawlSpider):
             
         return price_of_car
 
-    
     def extract_car_description(self, response):
         
         return response.css(".fs16 p::text, .fs16 a::text").getall()
-    
     
     def extract_specs(self, response):
         
         return response.css(".ad-data+ li::text").getall()
         
-    
     def extract_features(self, response):
         
         return response.css("#scroll_car_info .nomargin li::text").getall()
 
-    
     def extract_images(self, response):
         
         return response.css(" #myCarousel img::attr(src)").getall()
-    
     
     def extract_seller_info(self, response):
         name = response.css(".owner-detail-main h5::text").get()
@@ -70,12 +76,10 @@ class Pak_Wheel_Spider(CrawlSpider):
 
         return info
     
-    
     def extract_seller_comments(self, response):
         
         return response.css("#scroll_seller_comments+ div::text").getall()
-            
-            
+                   
     def parse_product_page(self, response):
         item = CarItem()
         
